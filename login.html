@@ -30,7 +30,7 @@
         align-items: center;
         width: 100%;
         height: 100vh;
-       background: linear-gradient(134deg,rgb(0, 0, 0),rgba(0, 0, 0, 0.945),rgb(0, 0, 0));
+        background: linear-gradient(134deg, rgb(0, 0, 0), rgba(0, 0, 0, 0.945), rgb(0, 0, 0));
     }
 
     .loginpage {
@@ -53,7 +53,13 @@
         flex-direction: column;
         align-items: center;
         padding: 20px 0px;
+        position: relative;
+        background: #000;
+        overflow: hidden;
+
     }
+
+
 
     .loginpage img {
         width: 180px;
@@ -71,18 +77,23 @@
         content: "";
         width: 70px;
         height: 2px;
-        background: linear-gradient(145deg, red, transparent);
+        background: linear-gradient(145deg, rgb(255, 255, 255), transparent);
     }
 
     .sideline::before {
         content: "";
         width: 70px;
         height: 2px;
-        background: linear-gradient(145deg, transparent, red);
+        background: linear-gradient(145deg, transparent, rgb(255, 255, 255));
     }
 
     .sideline span {
-        font-size: 13px;
+        font-size: 12px;
+        color: white;
+    }
+
+    .formbox label {
+        color: purple;
     }
 
     .loginpage>p {
@@ -107,6 +118,7 @@
 
     .footer-login p {
         font-size: 14px;
+        color: white;
     }
 
     .footer-link {
@@ -130,10 +142,11 @@
     }
 
     .inputbox input,
-    .selectrole {
+    .role {
         width: 100%;
         padding: 10px 20px;
         border-radius: 7px;
+        border: none;
 
     }
 
@@ -151,6 +164,7 @@
         justify-content: center;
         gap: 5px;
         border-radius: 5px;
+        border: none;
     }
 </style>
 
@@ -170,7 +184,7 @@
                 <label for="role">Select User Type</label>
 
                 <div class="inputbox">
-                    <select name="Role" id="role" class="selectrole">
+                    <select name="Role" class="role" id="selectrole">
                         <option value="">Select Your rold</option>
                         <option value="Admin">Admin</option>
                         <option value="Client">Client</option>
@@ -188,15 +202,38 @@
             </div>
 
             <div class="formbox">
-                <label for="password">Password</label>
+                <label for="email">Name</label>
 
                 <div class="inputbox">
-                    <input type="password" placeholder="Enter Your Password">
-                    <span class="material-symbols-outlined">visibility</span>
+                    <input type="text" placeholder="enter Your Name" id="text">
+                    <span class="material-symbols-outlined">mail</span>
                 </div>
             </div>
 
-            <button class="sub-btn"><span class="material-symbols-outlined">send</span>Submit Request</button>
+            <div class="formbox">
+                <label for="email">no</label>
+
+                <div class="inputbox">
+                    <input type="number" placeholder="enter Your Name"  maxlength="10" id="number">
+                    <span class="material-symbols-outlined">mail</span>
+                </div>
+            </div>
+
+            <div class="formbox">
+                <label for="password">Password</label>
+
+                <div class="inputbox">
+                    <input type="password" placeholder="Enter Your Password" id="password">
+                    <span class="material-symbols-outlined passeye">visibility</span>
+                </div>
+                <div class="inputbox">
+                    <input type="password" placeholder="Enter Your Password" id="confirmpassword">
+                    <span class="material-symbols-outlined passeye">visibility</span>
+                </div>
+            </div>
+
+            <button type="submit" class="sub-btn"><span class="material-symbols-outlined">send</span>Submit
+                Request</button>
 
         </form>
 
@@ -218,6 +255,148 @@
 
 
     </section>
+
+    <script>
+
+
+
+        //login form validation
+
+        const form = document.querySelector("form")
+        const selectrole = document.getElementById("selectrole");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const conpass = document.querySelector("#confirmpassword");
+        const text = document.querySelector("#text")
+        const number=document.querySelector("#number")
+
+        text.addEventListener("input", () => {
+            text.value = text.value.replace(/[^A-Za-z\s]/g, "");
+        });
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+
+            const role = selectrole.value.trim();
+            const semail = email.value.trim();
+            const spassword = password.value.trim();
+            const conp = conpass.value.trim();
+            const tex = text.value.trim();
+            const num=number.value.trim();
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            const nameRegex = /^[A-Za-z]+$/
+            const numRegex =/^[0-9]+$/
+
+
+            if (role === "") {
+                alert("please select your")
+                selectrole.focus();
+                return;
+            }
+
+            if (semail === "") {
+                alert("enter Your email")
+                email.focus()
+                return;
+            }
+
+            if (!emailRegex.test(semail)) {
+                alert("please  enter valid mail")
+                email.focus()
+                return;
+            }
+
+
+
+            if (tex == "") {
+                alert("enter Your Name")
+                text.focus();
+                return;
+            }
+
+            if(num == ""){
+                alert("enter Yr Number")
+                number.focus();
+                return;
+            }
+
+            
+            if(!numRegex.test(num)){
+                alert("number contains no only")
+                number.focus();
+                return;
+            }
+
+            if(num.length>10){
+                alert("number must be in 10 char")
+                return;
+            }
+
+
+
+            if (spassword === "") {
+                alert("enter your Password")
+                password.focus()
+                return;
+            }
+
+            if (spassword.length < 6) {
+                alert("password must be in 6 chars")
+                password.focus()
+                return;
+            }
+
+            if (conp === "") {
+                alert("enter your conform password")
+                conpass.focus();
+                return;
+            }
+
+            if (spassword !== conp) {
+                alert("password and confirm password must be same")
+                return;
+            }
+
+
+            localStorage.setItem("userEmail", semail);
+            if (role === "Admin") {
+                window.location.href = "admin.html"
+                return;
+            }
+
+            if (role === "Client") {
+                window.location.href = "client.html"
+                return;
+            }
+
+
+        })
+
+        //pass eye
+        const eye = document.querySelectorAll(".passeye")
+
+        eye.forEach((item) => {
+            item.addEventListener("click", () => {
+
+
+                const input = item.previousElementSibling;
+
+                if (input.type === "password") {
+                    item.textContent = "visibility_off"
+                    input.type = "text"
+                }
+
+                else {
+                    item.textContent = "visibility"
+                    input.type = "password"
+                }
+
+            })
+        })
+
+    </script>
 </body>
 
 </html>

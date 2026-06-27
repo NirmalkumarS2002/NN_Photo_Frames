@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .avatar {
+        display: flex;
+        gap: 10px;
+        background: rgb(95, 92, 92);
+        width: fit-content;
+        padding: 10px;
+        border-radius: 30px;
+    }
+
+    .avatar div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        color: white;
+    }
+
+    #Fletter {
+        height: 50px;
+        width: 50px;
+        background: linear-gradient(125deg, black, purple);
+        color: white;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+</style>
+
+<body>
+    <div class="avatar">
+        <h2 id="Fletter">d</h2>
+        <div>
+            <p id="user-email">sivakumar</p>
+            <p>Admin</p>
+        </div>
+    </div>
+
+    <script>
+        const email = localStorage.getItem("userEmail");
+
+        const para = document.getElementById("user-email");
+        const letter = document.getElementById("Fletter");
+
+        if (email && para && letter) {
+            para.textContent = email;
+            letter.textContent = email.charAt(0).toUpperCase();
+        }
+
+      
+
+    </script>
+</body>
+
+</html>
