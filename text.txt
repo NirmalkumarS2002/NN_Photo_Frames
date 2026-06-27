@@ -1,0 +1,147 @@
+
+        //login form validation
+
+        const form = document.querySelector("form")
+        const selectrole = document.getElementById("selectrole");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const conpass = document.querySelector("#confirmpassword");
+        const text = document.querySelector("#text")
+        const number=document.querySelector("#number")
+
+        text.addEventListener("input", () => {
+            text.value = text.value.replace(/[^A-Za-z\s]/g, "");
+        });
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+
+            const role = selectrole.value.trim();
+            const semail = email.value.trim();
+            const spassword = password.value.trim();
+            const conp = conpass.value.trim();
+            const tex = text.value.trim();
+            const num=number.value.trim();
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            const nameRegex = /^[A-Za-z]+$/
+            const numRegex =/^[0-9]+$/
+
+
+            if (role === "") {
+                alert("please select your")
+                selectrole.focus();
+                return;
+            }
+
+            if (semail === "") {
+                alert("enter Your email")
+                email.focus()
+                return;
+            }
+
+            if (!emailRegex.test(semail)) {
+                alert("please  enter valid mail")
+                email.focus()
+                return;
+            }
+
+
+
+            if (tex == "") {
+                alert("enter Your Name")
+                text.focus();
+                return;
+            }
+
+            if(num == ""){
+                alert("enter Yr Number")
+                number.focus();
+                return;
+            }
+
+            
+            if(!numRegex.test(num)){
+                alert("number contains no only")
+                number.focus();
+                return;
+            }
+
+            if(num.length>10){
+                alert("number must be in 10 char")
+                return;
+            }
+
+
+
+            if (spassword === "") {
+                alert("enter your Password")
+                password.focus()
+                return;
+            }
+
+            if (spassword.length < 6) {
+                alert("password must be in 6 chars")
+                password.focus()
+                return;
+            }
+
+            if (conp === "") {
+                alert("enter your conform password")
+                conpass.focus();
+                return;
+            }
+
+            if (spassword !== conp) {
+                alert("password and confirm password must be same")
+                return;
+            }
+
+
+            localStorage.setItem("userEmail", semail);
+            if (role === "Admin") {
+                window.location.href = "admin.html"
+                return;
+            }
+
+            if (role === "Client") {
+                window.location.href = "client.html"
+                return;
+            }
+
+
+        })
+
+        //pass eye
+        const eye = document.querySelectorAll(".passeye")
+
+        eye.forEach((item) => {
+            item.addEventListener("click", () => {
+
+
+                const input = item.previousElementSibling;
+
+                if (input.type === "password") {
+                    item.textContent = "visibility_off"
+                    input.type = "text"
+                }
+
+                else {
+                    item.textContent = "visibility"
+                    input.type = "password"
+                }
+
+            })
+        })
+
+
+            const email = localStorage.getItem("userEmail");
+
+        const para = document.getElementById("user-email");
+        const letter = document.getElementById("Fletter");
+
+        if (email && para && letter) {
+            para.textContent = email;
+            letter.textContent = email.charAt(0).toUpperCase();
+        }

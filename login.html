@@ -214,7 +214,7 @@
                 <label for="email">no</label>
 
                 <div class="inputbox">
-                    <input type="number" placeholder="enter Your Name"  maxlength="10" id="number">
+                    <input type="number" placeholder="enter Your Name" maxlength="10" id="number">
                     <span class="material-symbols-outlined">mail</span>
                 </div>
             </div>
@@ -258,143 +258,137 @@
 
     <script>
 
+        //form validation
 
 
-        //login form validation
+        let form = document.querySelector("form")
+        let role = document.querySelector('#selectrole')
+        let email = document.querySelector("#email")
+        let name = document.querySelector('#text')
+        let number = document.querySelector("#number")
+        let password = document.querySelector("#password")
+        let conpasword = document.querySelector('#confirmpassword')
 
-        const form = document.querySelector("form")
-        const selectrole = document.getElementById("selectrole");
-        const email = document.getElementById("email");
-        const password = document.getElementById("password");
-        const conpass = document.querySelector("#confirmpassword");
-        const text = document.querySelector("#text")
-        const number=document.querySelector("#number")
+        let emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        let namepattern = /^[A-Za-z]+$/
+        let numberpattern = /^[0-9]+$/
 
-        text.addEventListener("input", () => {
-            text.value = text.value.replace(/[^A-Za-z\s]/g, "");
-        });
+    name.addEventListener("input",()=>{
+         name.value=name.value.replace(/[^A-Za-z\s]/g,"")
+    })
+
+      number.addEventListener("input",()=>{
+        number.value=number.value.replace(/\D/g,"")
+
+        if(number.value.length>10){
+            number.value=number.value.slice(0,10)
+        }
+      })
 
         form.addEventListener("submit", (e) => {
-            e.preventDefault();
 
+            e.preventDefault()
 
-            const role = selectrole.value.trim();
-            const semail = email.value.trim();
-            const spassword = password.value.trim();
-            const conp = conpass.value.trim();
-            const tex = text.value.trim();
-            const num=number.value.trim();
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-            const nameRegex = /^[A-Za-z]+$/
-            const numRegex =/^[0-9]+$/
-
-
-            if (role === "") {
-                alert("please select your")
-                selectrole.focus();
+            if (role.value.trim() == "") {
+                alert("please select Your role")
+                role.focus();
                 return;
             }
 
-            if (semail === "") {
-                alert("enter Your email")
+            if (email.value.trim() == "") {
+                alert("please enter your email")
                 email.focus()
                 return;
             }
 
-            if (!emailRegex.test(semail)) {
-                alert("please  enter valid mail")
+            if (!emailpattern.test(email.value.trim())) {
+                alert("please enter valid email")
                 email.focus()
                 return;
             }
 
-
-
-            if (tex == "") {
-                alert("enter Your Name")
-                text.focus();
+            if (name.value.trim() == "") {
+                alert("please Enter Your Nmae")
+                name.focus()
                 return;
             }
 
-            if(num == ""){
-                alert("enter Yr Number")
-                number.focus();
+            if (!namepattern.test(name.value.trim())) {
+                alert("name should be contain chars only")
+                name.focus()
                 return;
             }
 
-            
-            if(!numRegex.test(num)){
-                alert("number contains no only")
-                number.focus();
+            if (number.value.trim() == "") {
+                alert("enter your number")
+                name.focus()
                 return;
             }
 
-            if(num.length>10){
-                alert("number must be in 10 char")
+            if (!numberpattern.test(number.value.trim())) {
+                alert("please enter valid number")
+                number.focus()
                 return;
             }
 
-
-
-            if (spassword === "") {
-                alert("enter your Password")
+            if (password.value.trim() == "") {
+                alert("enter your password")
                 password.focus()
                 return;
             }
 
-            if (spassword.length < 6) {
+            if (password.value.trim().length < 6) {
                 alert("password must be in 6 chars")
                 password.focus()
                 return;
             }
 
-            if (conp === "") {
-                alert("enter your conform password")
-                conpass.focus();
+            if (conpasword.value.trim() == "") {
+                alert("enter your confirm password")
+                conpasword.focus()
                 return;
             }
 
-            if (spassword !== conp) {
-                alert("password and confirm password must be same")
+            if (password.value.trim() != conpasword.value.trim()) {
+                alert("password must be equal")
                 return;
             }
 
 
-            localStorage.setItem("userEmail", semail);
-            if (role === "Admin") {
+            alert("form submited successfully")
+
+            localStorage.setItem("userEmail", email.value.trim())
+            if (role.value.trim() == "Admin") {
                 window.location.href = "admin.html"
-                return;
+                return
             }
-
-            if (role === "Client") {
+            if (role.value.trim() == "Client") {
                 window.location.href = "client.html"
-                return;
             }
-
-
+            form.reset()
         })
 
-        //pass eye
-        const eye = document.querySelectorAll(".passeye")
+        //password eye;
 
+        let eye = document.querySelectorAll(".passeye")
         eye.forEach((item) => {
+
+            let input = item.previousElementSibling;
+
             item.addEventListener("click", () => {
-
-
-                const input = item.previousElementSibling;
-
-                if (input.type === "password") {
+                if (input.type == "password") {
                     item.textContent = "visibility_off"
                     input.type = "text"
                 }
-
                 else {
                     item.textContent = "visibility"
                     input.type = "password"
                 }
-
             })
         })
+
+
+
 
     </script>
 </body>

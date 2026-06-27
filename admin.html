@@ -54,16 +54,15 @@
     </div>
 
     <script>
-        const email = localStorage.getItem("userEmail");
 
-        const para = document.getElementById("user-email");
-        const letter = document.getElementById("Fletter");
+      const getemail=localStorage.getItem("userEmail")
+      const mail=document.querySelector("#user-email")
+      const avatar=document.querySelector("#Fletter")
 
-        if (email && para && letter) {
-            para.textContent = email;
-            letter.textContent = email.charAt(0).toUpperCase();
-        }
-
+      if(getemail){
+        mail.textContent=getemail;
+        avatar.textContent=getemail.charAt(0).toUpperCase();
+      }
       
 
     </script>
